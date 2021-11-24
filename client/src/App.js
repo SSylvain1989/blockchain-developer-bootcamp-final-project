@@ -86,22 +86,6 @@ function App() {
     </div>
       <div className="main">
         <div className="card">
-
-          <div className="insideCard">
-          <button onClick={getStudentCount}>Get sudent count</button>
-          <div >
-            Nomber register student : <p id="studentCount"></p>
-          </div>
-          <br />
-          </div>
-
-
-
-          <div className="insideCard">
-          <button onClick={getListStudents}>List of Students</button>
-          <div id="studList">
-          </div>
-          </div>
           
           <div className="addTeacher">
           <label htmlFor="">Add Student Form</label>
@@ -157,6 +141,24 @@ function App() {
           </input>
           <button onClick={addGrade}>Add Student</button>
           <br />
+          </div>
+
+        </div>
+        <div className="main">
+        <div className="addTeacher">
+          <button onClick={getStudentCount}>Get sudent count</button>
+          <div >
+            Nomber register student : <p id="studentCount"></p>
+          </div>
+          <br />
+          </div>
+
+
+
+          <div className="addTeacher">
+          <button onClick={getListStudents}>List of Students</button>
+          <div id="studList">
+          </div>
           </div>
 
         </div>
