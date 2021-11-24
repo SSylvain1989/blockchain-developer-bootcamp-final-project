@@ -1,415 +1,223 @@
 export const schoolManager = [
  {
-   "inputs": [],
-   "stateMutability": "nonpayable",
-   "type": "constructor"
+  "inputs": [],
+  "stateMutability": "nonpayable",
+  "type": "constructor"
  },
  {
-   "anonymous": false,
-   "inputs": [
-     {
-       "indexed": true,
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "indexed": true,
-       "internalType": "bytes32",
-       "name": "previousAdminRole",
-       "type": "bytes32"
-     },
-     {
-       "indexed": true,
-       "internalType": "bytes32",
-       "name": "newAdminRole",
-       "type": "bytes32"
-     }
-   ],
-   "name": "RoleAdminChanged",
-   "type": "event"
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "uint256",
+    "name": "grade",
+    "type": "uint256"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "studentAddress",
+    "type": "address"
+   }
+  ],
+  "name": "LogGradeAdded",
+  "type": "event"
  },
  {
-   "anonymous": false,
-   "inputs": [
-     {
-       "indexed": true,
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "indexed": true,
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     },
-     {
-       "indexed": true,
-       "internalType": "address",
-       "name": "sender",
-       "type": "address"
-     }
-   ],
-   "name": "RoleGranted",
-   "type": "event"
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "string",
+    "name": "firstName",
+    "type": "string"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "studentAddress",
+    "type": "address"
+   }
+  ],
+  "name": "LogStudentAdded",
+  "type": "event"
  },
  {
-   "anonymous": false,
-   "inputs": [
-     {
-       "indexed": true,
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "indexed": true,
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     },
-     {
-       "indexed": true,
-       "internalType": "address",
-       "name": "sender",
-       "type": "address"
-     }
-   ],
-   "name": "RoleRevoked",
-   "type": "event"
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": false,
+    "internalType": "enum SchoolManager.State",
+    "name": "status",
+    "type": "uint8"
+   },
+   {
+    "indexed": false,
+    "internalType": "address",
+    "name": "studentAddress",
+    "type": "address"
+   }
+  ],
+  "name": "LogStudentGraduate",
+  "type": "event"
  },
  {
-   "inputs": [],
-   "name": "DEFAULT_ADMIN_ROLE",
-   "outputs": [
-     {
-       "internalType": "bytes32",
-       "name": "",
-       "type": "bytes32"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "anonymous": false,
+  "inputs": [
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "previousOwner",
+    "type": "address"
+   },
+   {
+    "indexed": true,
+    "internalType": "address",
+    "name": "newOwner",
+    "type": "address"
+   }
+  ],
+  "name": "OwnershipTransferred",
+  "type": "event"
  },
  {
-   "inputs": [],
-   "name": "HEADMASTER_ADMIN_ROLE",
-   "outputs": [
-     {
-       "internalType": "bytes32",
-       "name": "",
-       "type": "bytes32"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [],
+  "name": "owner",
+  "outputs": [
+   {
+    "internalType": "address",
+    "name": "",
+    "type": "address"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
  },
  {
-   "inputs": [
-     {
-       "internalType": "uint256",
-       "name": "",
-       "type": "uint256"
-     }
-   ],
-   "name": "ListOfStudents",
-   "outputs": [
-     {
-       "internalType": "address",
-       "name": "",
-       "type": "address"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [],
+  "name": "renounceOwnership",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
  },
  {
-   "inputs": [
-     {
-       "internalType": "uint256",
-       "name": "",
-       "type": "uint256"
-     }
-   ],
-   "name": "ListOfTeachers",
-   "outputs": [
-     {
-       "internalType": "address",
-       "name": "",
-       "type": "address"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "newOwner",
+    "type": "address"
+   }
+  ],
+  "name": "transferOwnership",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
  },
  {
-   "inputs": [],
-   "name": "TEACHER_ROLE",
-   "outputs": [
-     {
-       "internalType": "bytes32",
-       "name": "",
-       "type": "bytes32"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "_studentAddress",
+    "type": "address"
+   },
+   {
+    "internalType": "string",
+    "name": "_firstName",
+    "type": "string"
+   },
+   {
+    "internalType": "string",
+    "name": "_lastName",
+    "type": "string"
+   }
+  ],
+  "name": "addStudent",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
  },
  {
-   "inputs": [
-     {
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     }
-   ],
-   "name": "getRoleAdmin",
-   "outputs": [
-     {
-       "internalType": "bytes32",
-       "name": "",
-       "type": "bytes32"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "_studentAddress",
+    "type": "address"
+   },
+   {
+    "internalType": "uint256",
+    "name": "_grade",
+    "type": "uint256"
+   }
+  ],
+  "name": "addGrade",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
  },
  {
-   "inputs": [
-     {
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     }
-   ],
-   "name": "grantRole",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
+  "inputs": [
+   {
+    "internalType": "address",
+    "name": "_studentAddress",
+    "type": "address"
+   }
+  ],
+  "name": "getOneStudent",
+  "outputs": [
+   {
+    "internalType": "enum SchoolManager.State",
+    "name": "",
+    "type": "uint8"
+   },
+   {
+    "internalType": "uint256",
+    "name": "grade",
+    "type": "uint256"
+   },
+   {
+    "internalType": "string",
+    "name": "firstName",
+    "type": "string"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
  },
  {
-   "inputs": [
-     {
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     }
-   ],
-   "name": "hasRole",
-   "outputs": [
-     {
-       "internalType": "bool",
-       "name": "",
-       "type": "bool"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [],
+  "name": "getListStudents",
+  "outputs": [
+   {
+    "internalType": "address[]",
+    "name": "",
+    "type": "address[]"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
  },
  {
-   "inputs": [
-     {
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     }
-   ],
-   "name": "renounceRole",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
+  "inputs": [],
+  "name": "getStudentCount",
+  "outputs": [
+   {
+    "internalType": "uint256",
+    "name": "",
+    "type": "uint256"
+   }
+  ],
+  "stateMutability": "view",
+  "type": "function",
+  "constant": true
  },
  {
-   "inputs": [
-     {
-       "internalType": "bytes32",
-       "name": "role",
-       "type": "bytes32"
-     },
-     {
-       "internalType": "address",
-       "name": "account",
-       "type": "address"
-     }
-   ],
-   "name": "revokeRole",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
- },
- {
-   "inputs": [
-     {
-       "internalType": "bytes4",
-       "name": "interfaceId",
-       "type": "bytes4"
-     }
-   ],
-   "name": "supportsInterface",
-   "outputs": [
-     {
-       "internalType": "bool",
-       "name": "",
-       "type": "bool"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
- },
- {
-   "inputs": [
-     {
-       "internalType": "address",
-       "name": "_teacherAddress",
-       "type": "address"
-     },
-     {
-       "internalType": "string",
-       "name": "_firstName",
-       "type": "string"
-     },
-     {
-       "internalType": "string",
-       "name": "_lastName",
-       "type": "string"
-     }
-   ],
-   "name": "addTeacher",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
- },
- {
-   "inputs": [
-     {
-       "internalType": "address",
-       "name": "_studentAddress",
-       "type": "address"
-     },
-     {
-       "internalType": "string",
-       "name": "_firstName",
-       "type": "string"
-     },
-     {
-       "internalType": "string",
-       "name": "_lastName",
-       "type": "string"
-     }
-   ],
-   "name": "addStudent",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
- },
- {
-   "inputs": [
-     {
-       "internalType": "address",
-       "name": "_studentAddress",
-       "type": "address"
-     },
-     {
-       "internalType": "uint256",
-       "name": "_grade",
-       "type": "uint256"
-     },
-     {
-       "internalType": "string",
-       "name": "_subject",
-       "type": "string"
-     }
-   ],
-   "name": "addGrade",
-   "outputs": [],
-   "stateMutability": "nonpayable",
-   "type": "function"
- },
- {
-   "inputs": [
-     {
-       "internalType": "address",
-       "name": "_studentAddress",
-       "type": "address"
-     }
-   ],
-   "name": "getGrades",
-   "outputs": [
-     {
-       "internalType": "uint256[]",
-       "name": "",
-       "type": "uint256[]"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
- },
- {
-   "inputs": [],
-   "name": "showListOfTeachers",
-   "outputs": [
-     {
-       "internalType": "address[]",
-       "name": "",
-       "type": "address[]"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
- },
- {
-   "inputs": [],
-   "name": "showListOfStudents",
-   "outputs": [
-     {
-       "internalType": "address[]",
-       "name": "",
-       "type": "address[]"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
- },
- {
-   "inputs": [],
-   "name": "getTeachCount",
-   "outputs": [
-     {
-       "internalType": "uint256",
-       "name": "",
-       "type": "uint256"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
- },
- {
-   "inputs": [],
-   "name": "getStudentCount",
-   "outputs": [
-     {
-       "internalType": "uint256",
-       "name": "",
-       "type": "uint256"
-     }
-   ],
-   "stateMutability": "view",
-   "type": "function"
+  "inputs": [],
+  "name": "sendDegreeNFT",
+  "outputs": [],
+  "stateMutability": "nonpayable",
+  "type": "function"
  },
 ];
