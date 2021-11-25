@@ -27,8 +27,11 @@ function App() {
       .send({
         from: account,
       })
-      .catch(err => {
-        console.log('erreur addStudent:', err)
+      .then((receipt) => {
+        console.log('receipt addStudent:', receipt)
+      })
+      .then((err) => {
+        console.log('erreur addStudent:', err.message)
       })
   };
 
@@ -37,8 +40,11 @@ function App() {
       .send({
         from: account,
       })
-      .catch(err => {
-        console.log('erreur getStudentCount:', err.message)
+      .then((receipt) => {
+        console.log('receipt addGrade:', receipt)
+      })
+      .then((err) => {
+        console.log('erreur addGrade:', err.message)
       })
   };
 

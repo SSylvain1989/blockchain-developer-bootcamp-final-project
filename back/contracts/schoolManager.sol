@@ -14,7 +14,6 @@ contract SchoolManager is Ownable{
     
     struct Student {
         string firstName;
-        string lastName;
         uint grade;
         address studentAddress;
         State status;
@@ -38,16 +37,15 @@ contract SchoolManager is Ownable{
     /// @param status of the student according to the grade for his work 
     /// @param studentAddress of student 
     event LogStudentGraduate(State status , address studentAddress);
-  
+
     // @notice It will add a student if doesn't already exist
     // @param _studenAddress the address of the new student
     // @param _firstName the firstName of the new student
     // @param _lasttName the firstName of the new student
-    function addStudent(address _studentAddress, string memory _firstName, string memory _lastName) external onlyOwner {
+    function addStudent(address _studentAddress, string memory _firstName) external onlyOwner {
         bytes memory firstNameOfAddress = bytes(students[_studentAddress].firstName);
         require(firstNameOfAddress.length == 0, "This student already exist");
         students[_studentAddress].firstName = _firstName;
-        students[_studentAddress].lastName = _lastName;
         students[_studentAddress].studentAddress = _studentAddress;
         studentsAddresses[studentCount]= _studentAddress;
         students[_studentAddress].status = State.studentNotGraduate;

@@ -56,10 +56,9 @@ p {
 	flex-direction: column;
 	justify-content: space-between;
 	margin: 80px 0;
-	border: 1px solid green;
 }
 .card {
-	border: 1px solid green;
+
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
@@ -87,7 +86,6 @@ button {
 
 .addTeacher {
 	text-align: center;
-	border: 1px solid green;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
