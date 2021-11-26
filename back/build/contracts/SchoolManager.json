@@ -93,7 +93,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -178,7 +179,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -191,7 +193,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -204,7 +207,8 @@
         }
       ],
       "stateMutability": "view",
-      "type": "function"
+      "type": "function",
+      "constant": true
     },
     {
       "inputs": [],
@@ -16109,10 +16113,17 @@
       "links": {},
       "address": "0x67Bb944f3458a77d8e3B17C49B00Bc2320664D40",
       "transactionHash": "0x9589c371cc29c4e7a0d147956695b121eaaa6365c4099892a6e15e48d307506f"
+    },
+    "1637917299194": {
+      "events": {},
+      "links": {},
+      "address": "0xfF90414e2736778aF4904A0408055ca2220117e5",
+      "transactionHash": "0xd8af5525e0400569f6f14953d2c898332ad668e1c0446fe3f638e2c2c8ba5967"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-25T14:53:32.684Z",
+  "updatedAt": "2021-11-26T09:09:52.681Z",
+  "networkType": "ethereum",
   "devdoc": {
     "author": "Sylvain Sigonnez",
     "details": "Send a NFT degree to a graduate student",
