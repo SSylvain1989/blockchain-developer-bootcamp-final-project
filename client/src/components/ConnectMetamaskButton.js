@@ -12,7 +12,6 @@ export default function ConnectMetamaskButton() {
   // @connector: the current connector ? injected here
   // @activate: is the method to connect the wallet
   // @deactivate: is the method to disconnect the wallet
-  //  const { active, account, library, connector, activate, deactivate } = useWeb3React()
   async function connect() {
     try {
       await activate(injected)
@@ -28,29 +27,21 @@ export default function ConnectMetamaskButton() {
     }
   }
   return (
-
     <div className="buttonMetamask">
       <br />
-
-      {active
+      {active && activate
         ?
         <div>
-          <span>Connected with : {account.slice(0, 10)}...</span>
+          <button className="metamaskButton" onClick={disconnect}>Disconnect Metamask</button>
           <br />
-          <br />
-          <button onClick={disconnect}>Disconnect Metamask</button>
+          <span className="metamaskSpan">Connected with : {account.slice(0, 10)}...</span>
         </div>
         :
         <div>
-          <span>Not connected please hit connect</span>
-          <br />
-          <br />
-          <button onClick={connect}>Connect Metamask</button>
+          <button className="metamaskButton" onClick={connect}>Connect Metamask</button>
         </div>
       }
-
       <br />
-
     </div>
   )
 
