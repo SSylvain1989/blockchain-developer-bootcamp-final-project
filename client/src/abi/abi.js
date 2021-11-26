@@ -91,8 +91,7 @@ export const schoolManager = [
    }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
  },
  {
   "inputs": [],
@@ -124,11 +123,6 @@ export const schoolManager = [
    {
     "internalType": "string",
     "name": "_firstName",
-    "type": "string"
-   },
-   {
-    "internalType": "string",
-    "name": "_lastName",
     "type": "string"
    }
   ],
@@ -182,8 +176,7 @@ export const schoolManager = [
    }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
  },
  {
   "inputs": [],
@@ -196,8 +189,7 @@ export const schoolManager = [
    }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
  },
  {
   "inputs": [],
@@ -210,8 +202,7 @@ export const schoolManager = [
    }
   ],
   "stateMutability": "view",
-  "type": "function",
-  "constant": true
+  "type": "function"
  },
  {
   "inputs": [],
@@ -219,5 +210,5 @@ export const schoolManager = [
   "outputs": [],
   "stateMutability": "nonpayable",
   "type": "function"
- },
+ }
 ];

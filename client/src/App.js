@@ -1,29 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { schoolManager } from "./abi/abi";
 import Web3 from "web3";
-import { useWeb3React } from '@web3-react/core';
+// import { useWeb3React } from '@web3-react/core';
 
 import ConnectMetamaskButton from './components/ConnectMetamaskButton'
 import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x67Bb944f3458a77d8e3B17C49B00Bc2320664D40";
+const contractAddress = "0xfF90414e2736778aF4904A0408055ca2220117e5";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
-const studentCount = document.getElementById('studentCount');
-const studList = document.getElementById('studList');
 
 function App() {
-  const { account } = useWeb3React()
-  console.log(account);
+  useEffect(() => {
+    getStudentCount();
+    getListStudents();
+  },[]);
+  // const { account } = useWeb3React()
+  // console.log(account);
   const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+
   const [addressStudent, setAddressStudent] = useState('');
   const [grade, setGrade] = useState('');
   
   async function addStudent() {
-    const functionAddStudent = await contract.methods.addStudent(addressStudent, firstName, lastName)
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    await contract.methods.addStudent(addressStudent, firstName)
       .send({
         from: account,
       })
@@ -31,12 +35,14 @@ function App() {
         console.log('receipt addStudent:', receipt)
       })
       .then((err) => {
-        console.log('erreur addStudent:', err.message)
+        console.log('erreur addStudent:', err)
       })
   };
 
   async function addGrade() {
-    const functionAddGrade = await contract.methods.addGrade(addressStudent, grade)
+    const accounts = await window.ethereum.enable();
+    const account = accounts[0];
+    await contract.methods.addGrade(addressStudent, grade)
       .send({
         from: account,
       })
@@ -44,34 +50,35 @@ function App() {
         console.log('receipt addGrade:', receipt)
       })
       .then((err) => {
-        console.log('erreur addGrade:', err.message)
+        console.log('erreur addGrade:', err)
       })
   };
 
   async function getStudentCount() {
-    const theStudentCount = await contract.methods.getStudentCount().call()
-      .then(receipt => {
-        console.log('studentCount:',receipt)
-        studentCount.innerHTML = receipt;
+    await contract.methods.getStudentCount().call()
+    .then(receipt => {
+        const studentCount = document.getElementById('studentCount');
+        console.log('studentCount',studentCount)
+        console.log('studentCount:',typeof receipt)
+        studentCount.innerHTML = `${receipt}`;
       })
       .catch(err => {
-        console.log('erreur getStudentCount:', err.message)
+        console.log('erreur getStudentCount:', err)
       })
   };
 
   async function getListStudents() {
-    const theListOfStudent = await contract.methods.getListStudents().call()
+    await contract.methods.getListStudents().call()
       .then(receipt => {
-        console.log('studentList:',receipt)
+        let studList = document.getElementById('studList');
+        studList.innerHTML = '';
         for (let i = 0; i < receipt.length; i++) {
-          console.log('studentList:',receipt[i])
-          studList.innerHTM = receipt[i];
-          
+          console.log('studentListe:',receipt[i])
+          studList.innerHTML = `${studList.innerHTML} ${receipt[i]}<br/>`;
         }
-        // studList.innerHTML = response.slice(0, 5)+'<br/>';
       })
       .catch(err => {
-        alert('erreur')
+        alert('erreur', err)
       })
   };
 
@@ -110,15 +117,6 @@ function App() {
             placeholder="Enter Student firstName.."
             autoComplete="off"
             onChange={e => setFirstName(e.target.value)}
-          >
-          </input>
-          <label htmlFor="">lastName</label>
-          <input
-            id="lastNameStudent"
-            value={lastName}
-            placeholder="Enter Student lastName.."
-            autoComplete="off"
-            onChange={e => setLastName(e.target.value)}
           >
           </input>
           <button onClick={addStudent}>Add Student</button>
