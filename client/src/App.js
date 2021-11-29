@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { schoolManager } from "./abi/abi";
 import Web3 from "web3";
 import ConnectMetamaskButton from './components/ConnectMetamaskButton'
+import { useWeb3React } from '@web3-react/core';
 import './App.css';
 
 // @notice: web3 is the connection with metamask
@@ -28,6 +29,9 @@ function App() {
     getListStudents();
   },[eventMessage]);
 
+  const { active } = useWeb3React();
+
+  console.log(active);
   function addSmartContractListener() {
     contract.events.LogStudentAdded({}, (error, data) => {
       if (error) {

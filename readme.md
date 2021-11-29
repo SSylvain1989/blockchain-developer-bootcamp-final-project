@@ -14,11 +14,11 @@
 ### Contracts
 
 - Run `yarn install` in project root ( back file ) to install Truffle build and smart contract dependencies
-- Run local testnet in port `7545` with an Ethereum client, e.g. Ganache
+- Run local testnet in port `8545` with an Ethereum client, e.g. Ganache
 - `truffle migrate --network development`
 - `truffle console --network development`
 - Run tests in Truffle console: `test`
-- `development` network id is 1337, remember to change it in Metamask as well!
+- `development` network id is "*" in congif file!
 
 ### Frontend
 
@@ -26,16 +26,6 @@
 - `yarn install`
 - `yarn start`
 - Open `http://localhost:3000`
-
-### How to populate locally deployed contract with listings
-
-- `truffle migrate --network development`
-- `truffle console --network development`
-- `cd client && yarn start`
-- Open local ui from `http://localhost:3000`
-- Make sure your Metamask localhost network is in port `8545` and chain id is `1337`.
-- If you get `TXRejectedError` when sending a transaction, reset your Metamask account from Advanced settings.
-- Start add student , once is done , start grade student, if you grade the student below than 10 he will not been graduate
 
 ## Screencast link
 
