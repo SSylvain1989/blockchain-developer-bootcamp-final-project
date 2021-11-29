@@ -6,44 +6,47 @@ import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0xfF90414e2736778aF4904A0408055ca2220117e5";
+const contractAddress = "0x450788ba3bFB617632F19A310d608cC6A2a37825";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
 function App() {
-  useEffect(() => {
-    addSmartContractListener();
-    getStudentCount();
-    getListStudents();
-  },[]);
   const [firstName, setFirstName] = useState('');
   const [addressStudent, setAddressStudent] = useState('');
   const [grade, setGrade] = useState('');
   const [eventMessage, setEventMessage] = useState("");
   const [statusGraduate, setStatusGraduate] = useState("");
   const [successMessageFirstNameStudent, setSuccessMessageFirstNameStudent] = useState("");
-  const [successMessageStudentAddress, setSuccessMessageFirstName] = useState("");
+  const [successMessageStudentAddress, setSuccessMessageStudentAddress] = useState("");
   const [oneStudentGrade, setOneStudentGrade] = useState("");
   const [oneStudentFirstName, setOneStudentFirstName] = useState("");
   const [oneStudentGraduate, setOneStudentGraduate] = useState("");
   const [oneStudentError, setOneStudentError] = useState("");
+  useEffect(() => {
+    addSmartContractListener();
+    getStudentCount();
+    getListStudents();
+  },[eventMessage]);
 
   function addSmartContractListener() {
     contract.events.LogStudentAdded({}, (error, data) => {
       if (error) {
         console.log('ici:',error.message);
       } else {
-        console.log(data.returnValues);
-        setEventMessage('Student Added 🎉')
-        setSuccessMessageFirstName(`First Name : ${data.returnValues.firstName}`);
-        setSuccessMessageFirstNameStudent(`Address : ${data.returnValues.studentAddress.slice(0, 10)}...`);
+        console.log('success student added :',data.returnValues);
+
+        setEventMessage('Student Added 🎉 you can add a grade to him, his address is already filled in')
+        setSuccessMessageFirstNameStudent(`First Name : ${data.returnValues.firstName}`);
+        setSuccessMessageStudentAddress(`Address : ${data.returnValues.studentAddress.slice(0, 10)}...`);
+        setStatusGraduate('');
       }
     });
     contract.events.LogGradeAdded({}, (error, data) => {
       if (error) {
-        console.log('LogGradeAddedError:',error.message);
+        console.log('error add grade:',error.message);
       } else {
-        console.log(data.returnValues.grade);
+        console.log('success add grade :',data.returnValues.grade);
+
         setEventMessage(`Grade added 🙂 : ${data.returnValues.grade}`)
       }
     });
@@ -52,7 +55,7 @@ function App() {
         console.log('LogStudentGraduateError:',error.message);
       } else {
         console.log('logStudentGraduate typeof', typeof data.returnValues.status);
-        console.log('logStudentGraduate', data.returnValues.status);
+        console.log('success status student:', data.returnValues.status);
         if (data.returnValues.status === '1') {
           setStatusGraduate('Student Graduate 🥳');
         } else {
@@ -70,15 +73,27 @@ function App() {
       .send({
         from: account,
       })
+      .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
         console.log('receipt addStudent:', receipt)
+        setOneStudentGrade("");
+        setOneStudentFirstName("");
+        setOneStudentGraduate("");
       })
       .catch((err) => {
         if(err.message.includes("This student already exist")){
           setEventMessage("Error : This student already exist 😥")
+          setOneStudentGrade("");
+          setOneStudentFirstName("");
+          setOneStudentGraduate("");
         }
         else {
           setEventMessage("Error : Something went wrong try again 😥")
+          setSuccessMessageFirstNameStudent('');
+          setSuccessMessageStudentAddress('');
+          setOneStudentGrade("");
+          setOneStudentFirstName("");
+          setOneStudentGraduate("");
         } 
       })
   };
@@ -90,19 +105,25 @@ function App() {
       .send({
         from: account,
       })
+      .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
         console.log('receipt addGrade:', receipt)
       })
       .catch((err) => {
         if(err.message.includes("First you need to add the student")){
           setEventMessage("Error : First you need to add the student 😥")
+          setStatusGraduate('');
         }
         if(err.message.includes("Student already receive grade")){
-          setEventMessage("Error : Student already received grade 😉")
+          setEventMessage("Error : Student already received grade 😉 you can check his grade with the student section below 👇")
+          setStatusGraduate('');
         }
         else {
           console.log('addGradeErro',err)
           setEventMessage("Error : Something went wrong try again 😥")
+          setStatusGraduate('');
+          setSuccessMessageFirstNameStudent('');
+          setSuccessMessageStudentAddress('');
         } 
       })
   };
@@ -110,6 +131,9 @@ function App() {
   async function getOneStudent() {
     await contract.methods.getOneStudent(addressStudent).call()
       .then((receipt) => {
+        setStatusGraduate('');
+        setSuccessMessageFirstNameStudent('');
+        setSuccessMessageStudentAddress('');
         setOneStudentGrade(receipt.grade);
         setOneStudentFirstName(receipt.firstName);
         if (receipt[0] === '1') {
