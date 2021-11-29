@@ -31,18 +31,11 @@
 
 - `truffle migrate --network development`
 - `truffle console --network development`
-
-- dont know what is this below : 
-- `let rr = await Rentals.deployed()`
-- Add two listings:
-- `rr.addProperty(web3.utils.toWei("0.00156"), "Hämeentie 77", "Duplex with a nice view", "https://google.com","https://www.hermannikuvia.fi/wp-content/uploads/Hameentie-77-sisapiha.jpg")`
-- `rr.addProperty(web3.utils.toWei("0.002"), "Mannerheimintie 30 A", "Duplex with a really bad view", "https://google.com","https://www.finna.fi/Cover/Show?id=hkm.HKMS000005%3Akm002zsb&index=0&size=large&source=Solr")`
-- Send ETH to local wallet: `web3.eth.sendTransaction({ from: "<your local address>", to: "<your local network wallet>", value: web3.utils.toWei("10") })`
-- *********
 - `cd client && yarn start`
 - Open local ui from `http://localhost:3000`
 - Make sure your Metamask localhost network is in port `8545` and chain id is `1337`.
 - If you get `TXRejectedError` when sending a transaction, reset your Metamask account from Advanced settings.
+- Start add student , once is done , start grade student, if you grade the student below than 10 he will not been graduate
 
 ## Screencast link
 
@@ -52,7 +45,7 @@
 
 ## Project description
 
-Your a the teacher of a class , 
+Your a the teacher of a class , you will add your students and grade their job .
 
 ## Simple workflow
 
