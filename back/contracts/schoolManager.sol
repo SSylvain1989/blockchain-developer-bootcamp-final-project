@@ -25,6 +25,7 @@ contract SchoolManager is Ownable{
 
     enum State { studentNotGraduate, studentGraduate }
 
+    
     /// @notice Emitted when a new student is added
     /// @param firstName of student 
     /// @param studentAddress of student 
@@ -38,13 +39,28 @@ contract SchoolManager is Ownable{
     /// @param studentAddress of student 
     event LogStudentGraduate(State status , address studentAddress);
 
+    modifier isNewStudent (address studentAddress) {
+        bytes memory firstNameOfAddress = bytes(students[studentAddress].firstName);
+        require(firstNameOfAddress.length == 0, "This student already exist");
+        _;
+    }
+
+        modifier isStudent (address studentAddress) {
+        bytes memory firstNameOfAddress = bytes(students[studentAddress].firstName);
+        require(firstNameOfAddress.length > 0, "First you need to add the student");
+        _;
+    }
+
+    modifier isNewGrade(address studentAddress) {
+        require(students[studentAddress].grade == 0, "Student already receive grade");
+        _;
+    }
+
     // @notice It will add a student if doesn't already exist
     // @param _studenAddress the address of the new student
     // @param _firstName the firstName of the new student
     // @param _lasttName the firstName of the new student
-    function addStudent(address _studentAddress, string memory _firstName) external onlyOwner {
-        bytes memory firstNameOfAddress = bytes(students[_studentAddress].firstName);
-        require(firstNameOfAddress.length == 0, "This student already exist");
+    function addStudent(address _studentAddress, string memory _firstName) external onlyOwner isNewStudent(_studentAddress){
         students[_studentAddress].firstName = _firstName;
         students[_studentAddress].studentAddress = _studentAddress;
         studentsAddresses[studentCount]= _studentAddress;
@@ -56,10 +72,7 @@ contract SchoolManager is Ownable{
     // @notice It will add grade to a student if the student is already create
     // @param _studenAddress the address of the new student
     // @param _grade the grade of the work of the student
-    function addGrade(address _studentAddress, uint _grade) external onlyOwner {
-        bytes memory firstNameOfAddress = bytes(students[_studentAddress].firstName);
-        require(firstNameOfAddress.length > 0, "First you need to add the student");
-        require(students[_studentAddress].grade == 0, "Student already receive grade");
+    function addGrade(address _studentAddress, uint _grade) external onlyOwner isStudent(_studentAddress) isNewGrade(_studentAddress) {
         students[_studentAddress].grade = _grade;
         if(_grade >= 10) {
         emit LogGradeAdded(_grade, _studentAddress);
@@ -75,9 +88,7 @@ contract SchoolManager is Ownable{
     // @notice It will get the grade, the status and the firstName of the Student
     // @param _studenAddress the address of the student
     // @return the grade, the status and the firstName of the student
-    function getOneStudent(address _studentAddress) public view returns(State, uint grade, string memory firstName ){
-        bytes memory studentFirstName = bytes(students[_studentAddress].firstName);
-        require(studentFirstName.length > 0, "Student doesn't exist");
+    function getOneStudent(address _studentAddress) public isStudent(_studentAddress) view returns(State, uint grade, string memory firstName ) {
         return (students[_studentAddress].status, students[_studentAddress].grade, students[_studentAddress].firstName);
     }
 
