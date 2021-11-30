@@ -98,7 +98,7 @@ function App() {
             setEventMessage("ERROR❗️ : You denied transaction 🙁")
           }
           if (err.message.includes("caller is not the owner")) {
-            setEventMessage("ERROR❗️ : You are not the owner of this contract you can\'t add student 🙁")
+            setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add student 🙁")
           }
           else {
             setEventMessage("ERROR❗️ : Something went wrong try again 😥")
