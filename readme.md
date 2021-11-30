@@ -1,6 +1,7 @@
 # Final project - School Manager with blockchain
 
 ## Deployed version url:
+https://blockchain-developer-bootcamp-final-project-ssylvain1989.netlify.app/
 
 ## How to run this project locally:
 
@@ -26,6 +27,7 @@
 - `yarn install`
 - `yarn start`
 - Open `http://localhost:3000`
+- make sure you have put the contract address in app.js and ConnectMetamaskButton as well !
 
 ## Screencast link
 
@@ -35,17 +37,19 @@
 
 ## Project description
 
-Your a the teacher of a class , you will add your students and grade their job .
+As a class teacher, you will add a grade for your students' work.
+The students will be added to the contract themselves, but you can also add them.
+The idea here was that today many students cheat on their diplomas and grades to get a job or not to be punished more by their parents, with the blockchain we are solving this problem.
 
 ## Simple workflow
 
 1. Enter service web site
 2. Login with Metamask
-3. Add a student with his public ethereum wallet and his first name
-4. Add a grade to this same student , 10 or egal to 10 will graduated the student 
+3. If you are not thre owner you can add yoursel to the class as a student with your public ethereum wallet address and first name
+4. If you are the owner you can add a grade to a student who is already registered , 10 or egal to 10 will graduated the student . If the student is not registered yet you can add him yourself.
 5. The student can check on the website with his public ethereum wallet his grade and if is graduate or not 
-6. You can see the counter of registered students increament when you add one 
-7. You can see the list of registered students grow when you add one
+6. You can see the counter of registered students increament when a new student is registered
+7. You can see the list of registered students grow when you a new student is registered
 
 ## Directory structure
 

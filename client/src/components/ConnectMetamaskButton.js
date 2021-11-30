@@ -6,7 +6,7 @@ import { injected } from './wallet/connectors';
 import { reduceAddress } from '../util/reduceAddress';
 
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x450788ba3bFB617632F19A310d608cC6A2a37825";
+const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 

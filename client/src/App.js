@@ -6,7 +6,8 @@ import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x450788ba3bFB617632F19A310d608cC6A2a37825";
+// @notice: **** carrefull contract address need to be change in ConnectMetamaskButton as well ****
+const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
@@ -56,7 +57,6 @@ function App() {
         console.log('error add grade:', error.message);
       } else {
         console.log('success add grade :', data.returnValues.grade);
-
         setEventMessage(`Grade added 🙂 : ${data.returnValues.grade}`)
       }
     });
@@ -64,7 +64,6 @@ function App() {
       if (error) {
         console.log('LogStudentGraduateError:', error.message);
       } else {
-        // console.log('logStudentGraduate typeof', typeof data.returnValues.status);
         console.log('success status student:', data.returnValues.status);
         if (data.returnValues.status === '1') {
           setStatusGraduate('Student Graduate 🥳');
@@ -150,7 +149,6 @@ function App() {
           setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add grade 🙁")
         }
         else {
-          // console.log('add Grade Error', err.message)
           console.log('add Grade Error', err)
           setEventMessage("ERROR❗️: Something went wrong try again 😥")
           setStatusGraduate('');
@@ -180,16 +178,11 @@ function App() {
             setEventMessage('');
           }
           else {
-            console.log('je passe ici')
             setOneStudentGrade(`you got the grade of ${receipt.grade}`);
             setOneStudentGraduate(' so sorry you are not Graduated 😔');
             setEventMessage('');
           }
         }
-        console.log('getOneStudent:', receipt)
-        console.log('getOneStudent:', receipt[0])
-        console.log('getOneStudent:', receipt.grade)
-        console.log('getOneStudent:', receipt.firstName)
       })
       .catch((err) => {
         setOneStudentError('This student is not registered yet sorry 🙁')
@@ -219,7 +212,7 @@ function App() {
   async function getListStudents() {
     await contract.methods.getListStudents().call()
       .then(receipt => {
-        console.log(receipt)
+        console.log('getListStudents:',receipt)
         let studList = document.getElementById('studList');
         studList.innerHTML = '';
         if ( receipt.length === 0 || receipt.length === null){
@@ -232,7 +225,7 @@ function App() {
         }
       })
       .catch(err => {
-        console.log(' error , maybe you have no gas on this account ? ', err)
+        console.log(' error , maybe you have no eth on this account ? ', err)
       })
   };
   
