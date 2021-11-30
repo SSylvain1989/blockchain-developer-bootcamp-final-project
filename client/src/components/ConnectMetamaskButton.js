@@ -47,53 +47,53 @@ export default function ConnectMetamaskButton({childToParent}) {
     switch (netId) {
       case 1:
         if ( url.includes('netlify') ) {
-          setUrlMessage('We support only Ropsten network, and you are on :')
-          setNetworkMessage('Ropsten network ');
+          setUrlMessage('👉 We only support Ropsten network, and you are on :')
+          setNetworkMessage('mainnet network 🛑 change network for continue please');
         }
         else {
-          setUrlMessage('We support only localhost network, and you are on :')
-          setNetworkMessage('mainnet network 🙁');
+          setUrlMessage('👉 We only support localhost network, and you are on :')
+          setNetworkMessage('mainnet network 🛑 change network for continue please');
         }
         break
       case 2:
         break
       case 3:
         if ( url.includes('netlify') ) {
-          setUrlMessage('We support only Ropsten network, and you are on :')
-          setNetworkMessage('Ropsten network 🙂');
+          setUrlMessage('👉 We only support Ropsten network, and you are on :')
+          setNetworkMessage('Ropsten network 🙂 good to go 💪');
         }
         else {
-          setUrlMessage('We support only localhost network, and you are on :')
-          setNetworkMessage('Ropsten network 🙁');
+          setUrlMessage('👉 We only support localhost network, and you are on :')
+          setNetworkMessage('Ropsten network 🛑 change network for continue please');
         }
         break
         case 4:
           if ( url.includes('netlify') ) {
-            setUrlMessage('We support only Ropsten network, and you are on :')
-            setNetworkMessage('Rinkeby network 🙁');
+            setUrlMessage('👉 We only support Ropsten network, and you are on :')
+            setNetworkMessage('Rinkeby network 🛑 change network for continue please');
           }
           else {
-            setUrlMessage('We support only localhost network, and you are on :')
-            setNetworkMessage('Rinkeby network 🙁');
+            setUrlMessage('👉 We only support localhost network, and you are on :')
+            setNetworkMessage('Rinkeby network 🛑 change network for continue please');
           }
           break
         case 42:
           if ( url.includes('netlify') ) {
-            setUrlMessage('We support only Ropsten network, and you are on :')
-            setNetworkMessage('Kovan network 🙁 ');
+            setUrlMessage('👉 We only support Ropsten network, and you are on :')
+            setNetworkMessage('Kovan network 🛑 change network for continue please');
           }
           else {
-            setUrlMessage('We support only localhost network, and you are on :')
-            setNetworkMessage('Ropsten network 🙁');
+            setUrlMessage('👉 We only support localhost network, and you are on :')
+            setNetworkMessage('Ropsten network 🛑 change network for continue please');
           }
         break
       default:
         if ( url.includes('netlify') ) {
-          setUrlMessage('We support only Ropsten network, and you are on :')
-          setNetworkMessage('localhost or unknow network 🙁');
+          setUrlMessage('👉 We only support Ropsten network, and you are on :')
+          setNetworkMessage('localhost or unknow network 🛑 change network for continue please');
         }
         else {
-          setUrlMessage('We support only localhost network, and you are on : ')
+          setUrlMessage('👉 We only support localhost network, and you are on : ')
           setNetworkMessage('localhost network 🙂');
         }
     }
@@ -114,12 +114,12 @@ export default function ConnectMetamaskButton({childToParent}) {
           childToParent(true);
         }
         else {
-          setOwnerMessage("❗️ You are not the owner of this contrat you can yourself as a student and wait for your teacher to get a grade 😉")
+          setOwnerMessage("❗️ You are not the owner of this contrat but you can yourself as a student and wait for your teacher to get a grade 😉")
           childToParent(false);
         }
       })
       .catch(err => {
-        console.log('error , maybe you have no gas on this account ?  ', err)
+        console.log('error , maybe you have no eth on this account ?  ', err)
       })
   };
 
@@ -144,7 +144,7 @@ export default function ConnectMetamaskButton({childToParent}) {
       deactivate(injected)
       setIsConnected(false);
       setOwnerMessage("");
-      setMetamaskMessage("Please connect to your Metamask account 👇");
+      setMetamaskMessage("Please connect to your Metamask 🦊 account 👇");
     } catch (error) {
       console.log(error)
     }
