@@ -25,7 +25,6 @@ export default function ConnectMetamaskButton({text}) {
   useEffect(() => {
     checkIfuserIsLog();
     getTheOwner();
-
   }, [accountNumber]);
   async function checkIfuserIsLog() {
     const accounts = await window.ethereum.enable();
@@ -42,8 +41,10 @@ export default function ConnectMetamaskButton({text}) {
   async function getTheOwner() {
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
+    console.log('je pass là')
     await contract.methods.owner().call()
       .then(receipt => {
+        console.log('is connected user is owner :', receipt.toLowerCase() === account)
         if (receipt.toLowerCase() === account) {
           setOwnerMessage("Wonderfull you are the owner of this contrat 😉")
         }
@@ -65,6 +66,7 @@ export default function ConnectMetamaskButton({text}) {
     try {
       await activate(injected)
       setIsConnected(true);
+      console.log("je passe ici")
       getTheOwner();
     } catch (error) {
       console.log(error)

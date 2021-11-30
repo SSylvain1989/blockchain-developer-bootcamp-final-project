@@ -73,6 +73,7 @@ function App() {
     await contract.methods.addStudent(addressStudent, firstName)
       .send({
         from: account,
+        gas: '210000',
       })
       .then(setEventMessage('Confirm transaction on metamask...🙂'))
       .then((receipt) => {
@@ -118,6 +119,7 @@ function App() {
     await contract.methods.addGrade(addressStudent, grade)
       .send({
         from: account,
+        gas: '210000',
       })
       // .then(    contract.events.LogGradeAdded({}, (error, data) => {
       //   if (error) {
@@ -174,7 +176,7 @@ function App() {
           if (receipt.grade === '0') {
             setOneStudentGrade('');
             setStatusGraduate('');
-            setOneStudentGraduate('you haven\'t received a grade yet ... keep waiting please 😊');
+            setOneStudentGraduate("you haven't received a grade yet ... keep waiting please 😊");
             setEventMessage('');
           }
           else {
@@ -190,7 +192,7 @@ function App() {
         console.log('getOneStudent:', receipt.firstName)
       })
       .catch((err) => {
-        setOneStudentError('This student is not register yet sorry 🙁')
+        setOneStudentError('This student is not registered yet sorry 🙁')
         setOneStudentGrade("");
         setOneStudentFirstName("");
         setOneStudentGraduate("");
@@ -212,6 +214,7 @@ function App() {
   async function getListStudents() {
     await contract.methods.getListStudents().call()
       .then(receipt => {
+        // faire qqch si la liste est vide
         let studList = document.getElementById('studList');
         studList.innerHTML = '';
         for (let i = 0; i < receipt.length; i++) {
@@ -219,7 +222,8 @@ function App() {
         }
       })
       .catch(err => {
-        alert(' error , maybe you have no gas on this account ? ', err)
+        
+        console.log(' error , maybe you have no gas on this account ? ', err)
       })
   };
 
