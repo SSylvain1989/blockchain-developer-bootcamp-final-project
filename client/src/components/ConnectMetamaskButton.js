@@ -48,11 +48,11 @@ export default function ConnectMetamaskButton({childToParent}) {
       case 1:
         if ( url.includes('netlify') ) {
           setUrlMessage('👉 We only support Ropsten network, and you are on :')
-          setNetworkMessage('mainnet network 🛑 change network for continue please');
+          setNetworkMessage('Mainnet network  🛑  change network for continue please');
         }
         else {
           setUrlMessage('👉 We only support localhost network, and you are on :')
-          setNetworkMessage('mainnet network 🛑 change network for continue please');
+          setNetworkMessage('Mainnet network  🛑  change network for continue please');
         }
         break
       case 2:
@@ -64,37 +64,37 @@ export default function ConnectMetamaskButton({childToParent}) {
         }
         else {
           setUrlMessage('👉 We only support localhost network, and you are on :')
-          setNetworkMessage('Ropsten network 🛑 change network for continue please');
+          setNetworkMessage('Ropsten network  🛑  change network for continue please');
         }
         break
         case 4:
           if ( url.includes('netlify') ) {
             setUrlMessage('👉 We only support Ropsten network, and you are on :')
-            setNetworkMessage('Rinkeby network 🛑 change network for continue please');
+            setNetworkMessage('Rinkeby network  🛑  change network for continue please');
           }
           else {
             setUrlMessage('👉 We only support localhost network, and you are on :')
-            setNetworkMessage('Rinkeby network 🛑 change network for continue please');
+            setNetworkMessage('Rinkeby network  🛑  change network for continue please');
           }
           break
         case 42:
           if ( url.includes('netlify') ) {
             setUrlMessage('👉 We only support Ropsten network, and you are on :')
-            setNetworkMessage('Kovan network 🛑 change network for continue please');
+            setNetworkMessage('Kovan network  🛑  change network for continue please');
           }
           else {
             setUrlMessage('👉 We only support localhost network, and you are on :')
-            setNetworkMessage('Ropsten network 🛑 change network for continue please');
+            setNetworkMessage('Ropsten network  🛑  change network for continue please');
           }
         break
       default:
         if ( url.includes('netlify') ) {
           setUrlMessage('👉 We only support Ropsten network, and you are on :')
-          setNetworkMessage('localhost or unknow network 🛑 change network for continue please');
+          setNetworkMessage('Localhost or unknow network  🛑  change network for continue please');
         }
         else {
           setUrlMessage('👉 We only support localhost network, and you are on : ')
-          setNetworkMessage('localhost network 🙂');
+          setNetworkMessage('Localhost network 🙂');
         }
     }
   })
