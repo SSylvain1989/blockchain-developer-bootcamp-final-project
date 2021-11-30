@@ -63,7 +63,7 @@ export default function ConnectMetamaskButton({childToParent}) {
           setNetworkMessage('Ropsten network 🙂 good to go 💪');
         }
         else {
-          setUrlMessage('👉 We only support localhost network, and you are on :')
+          setUrlMessage('👉 We only support Localhost network, and you are on :')
           setNetworkMessage('Ropsten network  🛑  change network for continue please');
         }
         break

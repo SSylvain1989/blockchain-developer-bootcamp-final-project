@@ -27,7 +27,7 @@ https://blockchain-developer-bootcamp-final-project-ssylvain1989.netlify.app/
 - `yarn install`
 - `yarn start`
 - Open `http://localhost:3000`
-- make sure you have put the contract address in app.js and ConnectMetamaskButton as well !
+- Make sure you have put the contract address in app.js and **ConnectMetamaskButton.js** as well !
 
 ## Screencast link
 

@@ -6,7 +6,7 @@ import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-// @notice: **** carrefull contract address need to be change in ConnectMetamaskButton as well ****
+// @notice: **** carrefull contract address need to be change in ConnectMetamaskButton.js as well ****
 const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
@@ -30,7 +30,6 @@ function App() {
     console.log('childata', isOwner)
   }
   
-
   useEffect(() => {
     addSmartContractListener();
     getStudentCount();
@@ -38,7 +37,6 @@ function App() {
     setAddressStudent("");
     setFirstName("");
   }, [eventMessage, isOwner]);
-
 
   function addSmartContractListener() {
     contract.events.LogStudentAdded({}, (error, data) => {
@@ -66,9 +64,11 @@ function App() {
       } else {
         console.log('success status student:', data.returnValues.status);
         if (data.returnValues.status === '1') {
+          console.log('student is graduate')
           setStatusGraduate('Student Graduate 🥳');
         } else {
           console.log(data.returnValues.grade);
+          console.log('student is not graduate')
           setStatusGraduate('Student Not Graduate 😔');
         }
       }
@@ -79,11 +79,11 @@ function App() {
     const accounts = await window.ethereum.enable();
     const account = accounts[0];
     await contract.methods.addStudent(addressStudent, firstName)
-      .send({
-        from: account,
-        gas: '210000',
-      })
-      .then(setEventMessage('Confirm transaction on metamask...🙂'))
+    .send({
+      from: account,
+      gas: '210000',
+    })
+      .then(setEventMessage('Confirm transaction on metamask... and wait for 2 block 🙂'))
       .then((receipt) => {
         console.log('receipt addStudent:', receipt)
         setEventMessage('👉 Transaction is send wait for 2 block ...🙂')
@@ -92,7 +92,9 @@ function App() {
         setOneStudentGraduate("");
       })
       .catch((err) => {
-
+        console.log('error add student', err)
+        console.log('error add student', err.message)
+        console.log(err.message.includes("User denied transaction") === true)
         if (err.message.includes("This student already exist")) {
           console.log('error add student', err)
           setEventMessage("ERROR❗️ : This student already exist 😥")
@@ -100,23 +102,19 @@ function App() {
           setOneStudentFirstName("");
           setOneStudentGraduate("");
         }
+        else if (err.message.includes("User denied transaction")) {
+          setEventMessage("ERROR❗️ : You denied transaction 🙁")
+        }
+        else if (err.message.includes("caller is not the owner")) {
+          setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add student 🙁")
+        }
         else {
-          console.log('error add student', err)
-          console.log('error add student', err.message)
-          if (err.message.includes("User denied transaction")) {
-            setEventMessage("ERROR❗️ : You denied transaction 🙁")
-          }
-          if (err.message.includes("caller is not the owner")) {
-            setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add student 🙁")
-          }
-          else {
-            setEventMessage("ERROR❗️ : Something went wrong try again 😥")
-            setSuccessMessageFirstNameStudent('');
-            setSuccessMessageStudentAddress('');
-            setOneStudentGrade("");
-            setOneStudentFirstName("");
-            setOneStudentGraduate("");
-          }
+          setEventMessage("ERROR❗️ : Something went wrong try again 😥")
+          setSuccessMessageFirstNameStudent('');
+          setSuccessMessageStudentAddress('');
+          setOneStudentGrade("");
+          setOneStudentFirstName("");
+          setOneStudentGraduate("");
         }
       })
   };
@@ -131,6 +129,7 @@ function App() {
       })
       .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
+        setEventMessage('👉 Transaction is send wait for 2 block ...🙂')
         console.log('receipt addGrade:', receipt)
       })
       .catch((err) => {
@@ -138,14 +137,14 @@ function App() {
           setEventMessage("Error : First you need to add the student ☺️")
           setStatusGraduate('');
         }
-        if (err.message.includes("Student already receive grade")) {
+        else if (err.message.includes("Student already receive grade")) {
           setEventMessage("Error : Student already received grade 😉 you can check his grade with the student section below 👇")
           setStatusGraduate('');
         }
-        if (err.message.includes("User denied transaction")) {
+        else if (err.message.includes("User denied transaction")) {
           setEventMessage("ERROR❗️ : You denied transaction 🙁")
         }
-        if (err.message.includes("caller is not the owner")) {
+        else if (err.message.includes("caller is not the owner")) {
           setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add grade 🙁")
         }
         else {
