@@ -97,7 +97,7 @@ function App() {
         console.log(err.message.includes("User denied transaction") === true)
         if (err.message.includes("This student already exist")) {
           console.log('error add student', err)
-          setEventMessage("ERROR❗️ : This student already exist 😥")
+          setEventMessage("ERROR❗️ : This student already exist 🙂")
           setOneStudentGrade("");
           setOneStudentFirstName("");
           setOneStudentGraduate("");
@@ -109,7 +109,7 @@ function App() {
           setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add student 🙁")
         }
         else {
-          setEventMessage("ERROR❗️ : Something went wrong try again 😥")
+          setEventMessage("ERROR❗️ : Sorry this student already exist 🙂")
           setSuccessMessageFirstNameStudent('');
           setSuccessMessageStudentAddress('');
           setOneStudentGrade("");
@@ -133,11 +133,13 @@ function App() {
         console.log('receipt addGrade:', receipt)
       })
       .catch((err) => {
+        console.log('error add grade', err)
+        console.log('error add grade', err.message)
         if (err.message.includes("First you need to add the student")) {
           setEventMessage("Error : First you need to add the student ☺️")
           setStatusGraduate('');
         }
-        else if (err.message.includes("Student already receive grade")) {
+        else if (err.message.includes("ERROR❗️ : Student already receive grade ☺️")) {
           setEventMessage("Error : Student already received grade 😉 you can check his grade with the student section below 👇")
           setStatusGraduate('');
         }
@@ -149,7 +151,7 @@ function App() {
         }
         else {
           console.log('add Grade Error', err)
-          setEventMessage("ERROR❗️: Something went wrong try again 😥")
+          setEventMessage("ERROR❗️ : Sorry student already receive grade ☺️")
           setStatusGraduate('');
           setSuccessMessageFirstNameStudent('');
           setSuccessMessageStudentAddress('');
