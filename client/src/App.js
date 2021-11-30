@@ -38,6 +38,17 @@ function App() {
     setFirstName("");
   }, [eventMessage, isOwner]);
 
+  window.addEventListener("unhandledrejection", function(promiseRejectionEvent) { 
+    console.log("unhandledrejection",promiseRejectionEvent.reason.reason)
+    if (promiseRejectionEvent.reason.reason.includes('address')){
+      console.log("unhandledrejection address",promiseRejectionEvent)
+      setEventMessage('Please add a valid address ❗️')
+    }
+    else {
+      console.log("Please enter valid arguments for your transaction ❗️")
+    }
+});
+
   function addSmartContractListener() {
     contract.events.LogStudentAdded({}, (error, data) => {
       if (error) {
