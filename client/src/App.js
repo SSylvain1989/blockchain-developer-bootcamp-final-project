@@ -145,7 +145,7 @@ function App() {
           setEventMessage("ERROR❗️ : You denied transaction 🙁")
         }
         if (err.message.includes("caller is not the owner")) {
-          setEventMessage("ERROR❗️ : You are not the owner of this contract you can\'t add grade 🙁")
+          setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add grade 🙁")
         }
         else {
           console.log('add Grade Error', err.message)
