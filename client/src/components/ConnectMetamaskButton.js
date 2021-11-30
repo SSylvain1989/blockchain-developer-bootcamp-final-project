@@ -28,6 +28,7 @@ export default function ConnectMetamaskButton({childToParent}) {
   useEffect(() => {
     checkIfuserIsLog();
     getTheOwner();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
   async function checkIfuserIsLog() {
