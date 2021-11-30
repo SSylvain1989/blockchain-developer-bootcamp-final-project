@@ -60,7 +60,7 @@ contract SchoolManager is Ownable{
     // @param _studenAddress the address of the new student
     // @param _firstName the firstName of the new student
     // @param _lasttName the firstName of the new student
-    function addStudent(address _studentAddress, string memory _firstName) external onlyOwner isNewStudent(_studentAddress){
+    function addStudent(address _studentAddress, string memory _firstName) external isNewStudent(_studentAddress){
         students[_studentAddress].firstName = _firstName;
         students[_studentAddress].studentAddress = _studentAddress;
         studentsAddresses[studentCount]= _studentAddress;
