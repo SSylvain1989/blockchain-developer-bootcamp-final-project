@@ -17,25 +17,25 @@ html {
 body {
 	background-color: #282c34;
 	min-height: 100vh;
-	/* display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center; */
 	font-size: calc(6px + 2vmin);
 	color: white;
 }
 .header {
-	display: flex;
-	justify-content: space-between;
+text-align: center;
 }
-.headerText {
-	padding: 40px;
-	/* max-width: 400px; */
+.headerParagraph {
+	color: #61dafb;
+	font-weight: bold;
 }
+.headerParagraph:nth-child(odd) {
+	color: #EE811A;
+	margin-bottom: 30px;
+}
+
 h1 {
 	margin-top: 0;
 	color: #61dafb;
-	margin-bottom:8px;
+	margin-bottom:40px;
 }
 h3 {
 	text-align: center;
@@ -50,6 +50,15 @@ h4 {
 p {
 	font-size: 19px;
 }
+
+.connectMessage {
+		font-weight:bold;
+		font-size:23px;
+		color: #EE811A;
+	text-align: center;
+	margin-bottom : 0px;
+}
+
 
 .registerStudent{
 	font-weight:bold;
@@ -138,6 +147,7 @@ label {
 .buttonMetamask {
 	text-align: center;
 	padding: 40px;
+	padding-top: 10px;
 }
 
 .message {
@@ -152,15 +162,15 @@ label {
 	font-size:23px;
 }
 
-.headerConnection {
-	display: flex;
-	width: 44%;
-}
-.connectDiv {
-	display: flex;
-}
 .ownerMessage {
 	align-self: center;
 	padding-bottom: 63px;
 	padding-left: 0px;
+}
+
+.connectionPart {
+	border-top: solid 3px black;
+	border-bottom: solid 3px black;
+	display: flex;
+	justify-content: center;
 }

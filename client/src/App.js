@@ -6,7 +6,7 @@ import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
+const contractAddress = "0x5910047d048f85BF8aDa24f0058351d40339947c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
@@ -22,12 +22,21 @@ function App() {
   const [oneStudentFirstName, setOneStudentFirstName] = useState("");
   const [oneStudentGraduate, setOneStudentGraduate] = useState("");
   const [oneStudentError, setOneStudentError] = useState("");
+  const [isOwner, setIsOwner] = useState('');
+
+  const childToParent = (childdata) => {
+    setIsOwner(childdata);
+    console.log('childata', isOwner)
+  }
+  
 
   useEffect(() => {
     addSmartContractListener();
     getStudentCount();
     getListStudents();
-  }, [eventMessage]);
+    setAddressStudent("");
+    setFirstName("");
+  }, [eventMessage, isOwner]);
 
 
   function addSmartContractListener() {
@@ -35,8 +44,8 @@ function App() {
       if (error) {
         console.log('error on logStudentAdded:', error.message);
       } else {
-        console.log('success student added :', data.returnValues);
-        setEventMessage('Student Added 🎉 you can add a grade to him, his address is already filled in')
+        console.log('success logStudentAdded added :', data.returnValues);
+        setEventMessage('Student Added 🎉 now wait the grade from your teacher')
         setSuccessMessageFirstNameStudent(`First Name : ${data.returnValues.firstName}`);
         setSuccessMessageStudentAddress(`Address : ${data.returnValues.studentAddress.slice(0, 10)}...`);
         setStatusGraduate('');
@@ -55,7 +64,7 @@ function App() {
       if (error) {
         console.log('LogStudentGraduateError:', error.message);
       } else {
-        console.log('logStudentGraduate typeof', typeof data.returnValues.status);
+        // console.log('logStudentGraduate typeof', typeof data.returnValues.status);
         console.log('success status student:', data.returnValues.status);
         if (data.returnValues.status === '1') {
           setStatusGraduate('Student Graduate 🥳');
@@ -121,15 +130,6 @@ function App() {
         from: account,
         gas: '210000',
       })
-      // .then(    contract.events.LogGradeAdded({}, (error, data) => {
-      //   if (error) {
-      //     console.log('error add grade:',error.message);
-      //   } else {
-      //     console.log('success add grade :',data.returnValues.grade);
-
-      //     setEventMessage(`Grade added 🙂 : ${data.returnValues.grade}`)
-      //   }
-      // }))
       .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
         console.log('receipt addGrade:', receipt)
@@ -150,7 +150,7 @@ function App() {
           setEventMessage("ERROR❗️ : You are not the owner of this contract you can't add grade 🙁")
         }
         else {
-          console.log('add Grade Error', err.message)
+          // console.log('add Grade Error', err.message)
           console.log('add Grade Error', err)
           setEventMessage("ERROR❗️: Something went wrong try again 😥")
           setStatusGraduate('');
@@ -204,7 +204,12 @@ function App() {
     await contract.methods.getStudentCount().call()
       .then(receipt => {
         const studentCount = document.getElementById('studentCount');
-        studentCount.innerHTML = `${receipt}`;
+        if (receipt  === '0' || receipt.length === null ){
+          studentCount.innerHTML = ('No student registered yet')
+        }
+        else {
+          studentCount.innerHTML = `${receipt}`;
+        }
       })
       .catch(err => {
         console.log('erreur getStudentCount:', err)
@@ -214,34 +219,38 @@ function App() {
   async function getListStudents() {
     await contract.methods.getListStudents().call()
       .then(receipt => {
-        // faire qqch si la liste est vide
+        console.log(receipt)
         let studList = document.getElementById('studList');
         studList.innerHTML = '';
-        for (let i = 0; i < receipt.length; i++) {
-          studList.innerHTML = `${studList.innerHTML} ${receipt[i]}<br/><br/>`;
+        if ( receipt.length === 0 || receipt.length === null){
+          studList.innerHTML =('No student registered yet')
+        }
+        else {
+          for (let i = 0; i < receipt.length; i++) {
+            studList.innerHTML = `${studList.innerHTML} ${receipt[i]}<br/><br/>`;
+          }
         }
       })
       .catch(err => {
-        
         console.log(' error , maybe you have no gas on this account ? ', err)
       })
   };
-
+  
 
   return (
     <>
       <div className="header">
         <div className="headerText">
           <h1>School Manager</h1>
-          <p className="headerParagraph">You are a teacher of a class</p>
-          <p className="headerParagraph">You can add Student</p>
-          <p className="headerParagraph">Students get Grades from you only</p>
-          <p className="headerParagraph">Students can check their grade and graduate status</p>
-        </div>
-        <div className="headerConnection">
-          <ConnectMetamaskButton />
+          <p className="headerParagraph">You are a student ?</p>
+          <p className="headerParagraph">You can register yourself and wait a teacher will grade your work , then check your grade and graduate status</p>
+          <p className="headerParagraph">You are a Teacher (so the owner of this contract) ?</p>
+          <p className="headerParagraph">You can add grade to students</p>
         </div>
       </div>
+        <div className="connectionPart">
+          <ConnectMetamaskButton childToParent={childToParent}/>
+        </div>
       <div className="main">
         <div className="message">
           {eventMessage.length > 2
@@ -265,6 +274,7 @@ function App() {
           <div className="addTeacher">
 
             <label htmlFor="">Add Student Form</label>
+            <p>(Student and Owner can do that)</p>
             <input
               id="addressStudent"
               value={addressStudent}
@@ -286,29 +296,35 @@ function App() {
             <br />
           </div>
 
+          {isOwner 
+          ?
           <div className="addTeacher">
-            <label htmlFor="">Add Grade Form</label>
-            <input
-              id="addressStudent"
-              value={addressStudent}
-              placeholder="Enter student address account.."
-              autoComplete="off"
-              onChange={e => setAddressStudent(e.target.value)}
-            >
-            </input>
-            <label htmlFor="">Grade</label>
-            <input
-              id="firstNameStudent"
-              type="number"
-              value={grade}
-              placeholder="Enter student Grade.."
-              autoComplete="off"
-              onChange={e => setGrade(e.target.value)}
-            >
-            </input>
-            <button onClick={addGrade}>Add Grade</button>
-            <br />
-          </div>
+          <label htmlFor="">Add Grade Form </label>
+          <p>(Teacher/Owner can do that)</p>
+          <input
+            id="addressStudent"
+            value={addressStudent}
+            placeholder="Enter student address account.."
+            autoComplete="off"
+            onChange={e => setAddressStudent(e.target.value)}
+          >
+          </input>
+          <label htmlFor="">Grade(not below 1)</label>
+          <input
+            id="firstNameStudent"
+            type="number"
+            value={grade}
+            placeholder="Enter student Grade.."
+            autoComplete="off"
+            onChange={e => setGrade(e.target.value)}
+          >
+          </input>
+          <button onClick={addGrade}>Add Grade</button>
+          <br />
+        </div>
+        :
+        ''
+        }
 
         </div>
         <div className="main">
