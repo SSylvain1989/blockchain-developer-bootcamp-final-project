@@ -6,7 +6,7 @@ import './App.css';
 
 // @notice: web3 is the connection with metamask
 const web3 = new Web3(Web3.givenProvider);
-const contractAddress = "0x5910047d048f85BF8aDa24f0058351d40339947c";
+const contractAddress = "0x450788ba3bFB617632F19A310d608cC6A2a37825";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
