@@ -4,7 +4,7 @@ import Web3 from "web3";
 import ConnectMetamaskButton from './components/ConnectMetamaskButton'
 import './App.css';
 
-// @notice: web3 is the connection with metamask
+// @notice: web3 is the connection with metamask wallet
 const web3 = new Web3(Web3.givenProvider);
 // @notice: **** carrefull contract address need to be change in ConnectMetamaskButton.js as well ****
 const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
