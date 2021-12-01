@@ -140,8 +140,21 @@ function App() {
       })
       .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
-        setEventMessage('👉 Transaction is send wait for 2 block ...🙂')
-        console.log('receipt addGrade:', receipt)
+        console.log('receipt addGrade:', receipt.events.LogGradeAdded.returnValues.grade)
+        console.log('receipt addGrade:', receipt.events.LogStudentGraduate.returnValues.status)
+        if (receipt.events.LogStudentGraduate.returnValues.status === '1') {
+          console.log('receipt addGrade:', receipt.events.LogGradeAdded.returnValues.grade)
+          console.log('receipt addGrade:', receipt.events.LogStudentGraduate.returnValues.status)
+          console.log('student is graduate')
+          setStatusGraduate('Student Graduate 🥳');
+          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade}`)
+        } else {
+          console.log('student is not graduate')
+          setStatusGraduate('Student Not Graduate 😔');
+          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade}`)
+          console.log('receipt addGrade:', receipt.events.LogGradeAdded.returnValues.grade)
+          console.log('receipt addGrade:', receipt.events.LogStudentGraduate.returnValues.status)
+        }
       })
       .catch((err) => {
         console.log('error add grade', err)
