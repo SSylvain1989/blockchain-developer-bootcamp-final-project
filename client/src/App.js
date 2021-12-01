@@ -7,7 +7,7 @@ import './App.css';
 // @notice: web3 is the connection with metamask wallet
 const web3 = new Web3(Web3.givenProvider);
 // @notice: **** carrefull contract address need to be change in ConnectMetamaskButton.js as well ****
-const contractAddress = "0x5910047d048f85BF8aDa24f0058351d40339947c";
+const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
