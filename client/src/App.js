@@ -36,6 +36,8 @@ function App() {
     getListStudents();
     setAddressStudent("");
     setFirstName("");
+    setGrade("");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventMessage, isOwner]);
 
   window.addEventListener("unhandledrejection", function(promiseRejectionEvent) { 
@@ -78,9 +80,10 @@ function App() {
           console.log('student is graduate')
           setStatusGraduate('Student Graduate 🥳');
         } else {
-          console.log(data.returnValues.grade);
+          console.log(data.returnValues.status);
           console.log('student is not graduate')
           setStatusGraduate('Student Not Graduate 😔');
+          console.log('statusGraduate', statusGraduate)
         }
       }
     });
@@ -92,7 +95,6 @@ function App() {
     await contract.methods.addStudent(addressStudent, firstName)
     .send({
       from: account,
-      gas: '210000',
     })
       .then(setEventMessage('Confirm transaction on metamask... and wait for 2 block 🙂'))
       .then((receipt) => {
@@ -136,7 +138,6 @@ function App() {
     await contract.methods.addGrade(addressStudent, grade)
       .send({
         from: account,
-        gas: '210000',
       })
       .then(setEventMessage('Confirm transaction on metamask and wait for 2 block ...🙂'))
       .then((receipt) => {
@@ -253,7 +254,13 @@ function App() {
         console.log(' error , maybe you have no eth on this account ? ', err)
       })
   };
-  
+
+  function handleAddStudent () {
+    setFirstName('');
+    setAddressStudent('');
+    setStatusGraduate('');
+    addStudent();
+  }
 
   return (
     <>
@@ -310,7 +317,7 @@ function App() {
               onChange={e => setFirstName(e.target.value)}
             >
             </input>
-            <button onClick={addStudent}>Add Student</button>
+            <button onClick={handleAddStudent}>Add Student</button>
             <br />
           </div>
 
