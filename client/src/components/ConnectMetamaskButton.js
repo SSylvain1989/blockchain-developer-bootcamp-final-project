@@ -10,26 +10,19 @@ const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
 export default function ConnectMetamaskButton({childToParent}) {
-  // const { activate, deactivate  } = useWeb3React()
-
   // @active: is there a wallet actively connected right now?
   // @account: broadcast the blockchain account / address
   // @library: web3 ou etherJs 
   // @connector: the current connector ? injected here
   // @activate: is the method to connect the wallet
   // @deactivate: is the method to disconnect the wallet
-  // const [isConnected, setIsConnected] = useState("");
-  // const [accountNumber, setAccountNumber] = useState("");
   const [ownerMessage, setOwnerMessage] = useState("");
   const [networkMessage, setNetworkMessage] = useState("");
   const [urlMessage, setUrlMessage] = useState("");
-  // const [metamaskMessage, setMetamaskMessage] = useState("");
   const[errorMessage, setErrorMessage] = useState(null);
   const[defaultAccount, setDefaultAccount]=useState(null);
   const[userBalance, setUserBalance]=useState(null);
   const[connButtonText, setConnButtonText] = useState('Connect Wallet');
-
-
 
   const connectWalletHandler = async () => {
       if (window.ethereum && window.ethereum.isMetaMask) {
@@ -39,7 +32,6 @@ window.ethereum.on('accountsChanged', accountChangedHandler, getTheOwner);
 
 window.ethereum.on('chainChanged', chainChangedHandler);
 
-// checkIfuserIsLog();
 getTheOwner();
 web3.eth.net.getId().then(netId => {
   let url = window.location.href;
@@ -73,7 +65,7 @@ web3.eth.net.getId().then(netId => {
         }
         else {
           setUrlMessage('👉 We only support localhost network, and you are on :')
-          setNetworkMessage('Rinkeby network  🛑  change network for continue please');
+          setNetworkMessage('Rinkeby network  🛑  change network for continue please ');
         }
         break
       case 42:
@@ -128,8 +120,7 @@ web3.eth.net.getId().then(netId => {
   }
 
   const accountChangedHandler = (newAccount) => {
-    // window.location.reload();
-    getTheOwner();
+  getTheOwner();
   setDefaultAccount(`Connected with : ${newAccount}`);
   getAccountBalance(newAccount.toString());
 }
@@ -155,19 +146,6 @@ const chainChangedHandler = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultAccount]);
   
-  // async function checkIfuserIsLog() {
-  //   const accounts = await window.ethereum.enable();
-  //   const account = accounts[0];
-  //   if (account.length > 0) {
-  //     setIsConnected(true);
-  //     setDefaultAccount(accounts[0]);
-  //   }
-  //   else {
-  //     setIsConnected(false);
-  //   }
-  // }
-
-
   async function getTheOwner() {
     console.log("in getTheOwner fonction")
     const accounts = await window.ethereum.enable();
