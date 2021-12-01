@@ -99,7 +99,9 @@ function App() {
       .then(setEventMessage('Confirm transaction on metamask... and wait for 2 block 🙂'))
       .then((receipt) => {
         console.log('receipt addStudent:', receipt)
-        setEventMessage('👉 Transaction is send wait for 2 block ...🙂')
+        setEventMessage('Student Added 🎉 now wait the grade from your teacher')
+        setSuccessMessageFirstNameStudent(`First Name : ${receipt.events.LogStudentAdded.returnValues.firstName}`);
+        setSuccessMessageStudentAddress(`Address : ${receipt.events.LogStudentAdded.returnValues.studentAddress.slice(0, 10)}...`);
         setOneStudentGrade("");
         setOneStudentFirstName("");
         setOneStudentGraduate("");
