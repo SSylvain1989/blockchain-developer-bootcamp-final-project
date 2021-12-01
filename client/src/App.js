@@ -7,7 +7,7 @@ import './App.css';
 // @notice: web3 is the connection with metamask wallet
 const web3 = new Web3(Web3.givenProvider);
 // @notice: **** carrefull contract address need to be change in ConnectMetamaskButton.js as well ****
-const contractAddress = "0x9Bc3ad57d23F81a97edB77473D65800B8222F55c";
+const contractAddress = "0x5910047d048f85BF8aDa24f0058351d40339947c";
 // @notice: contract contain address contract and ABI 
 const contract = new web3.eth.Contract(schoolManager, contractAddress);
 
@@ -40,16 +40,16 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eventMessage, isOwner]);
 
-  window.addEventListener("unhandledrejection", function(promiseRejectionEvent) { 
-    console.log("unhandledrejection",promiseRejectionEvent.reason.reason)
-    if (promiseRejectionEvent.reason.reason.includes('address')){
-      console.log("unhandledrejection address",promiseRejectionEvent)
-      setEventMessage('Please add a valid address ❗️')
-    }
-    else {
-      console.log("Please enter valid arguments for your transaction ❗️")
-    }
-});
+//   window.addEventListener("unhandledrejection", function(promiseRejectionEvent) { 
+//     console.log("unhandledrejection",promiseRejectionEvent.reason.reason)
+//     if (promiseRejectionEvent.reason.reason.includes('address')){
+//       console.log("unhandledrejection address",promiseRejectionEvent)
+//       setEventMessage('Please add a valid address ❗️')
+//     }
+//     else {
+//       console.log("Please enter valid arguments for your transaction ❗️")
+//     }
+// });
 
   function addSmartContractListener() {
     contract.events.LogStudentAdded({}, (error, data) => {
