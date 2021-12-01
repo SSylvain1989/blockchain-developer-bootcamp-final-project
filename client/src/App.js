@@ -147,11 +147,11 @@ function App() {
           console.log('receipt addGrade:', receipt.events.LogStudentGraduate.returnValues.status)
           console.log('student is graduate')
           setStatusGraduate('Student Graduate 🥳');
-          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade}`)
+          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade} Student Graduate 🥳`)
         } else {
           console.log('student is not graduate')
           setStatusGraduate('Student Not Graduate 😔');
-          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade}`)
+          setEventMessage(`Grade added 🙂 : ${receipt.events.LogGradeAdded.returnValues.grade} Student Not Graduate 😔`)
           console.log('receipt addGrade:', receipt.events.LogGradeAdded.returnValues.grade)
           console.log('receipt addGrade:', receipt.events.LogStudentGraduate.returnValues.status)
         }
