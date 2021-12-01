@@ -1,6 +1,7 @@
 # Final project - School Manager with blockchain
 
 ## Deployed version url:
+
 https://blockchain-developer-bootcamp-final-project-ssylvain1989.netlify.app/
 
 ## How to run this project locally:
@@ -31,9 +32,11 @@ https://blockchain-developer-bootcamp-final-project-ssylvain1989.netlify.app/
 
 ## Screencast link
 
+https://youtu.be/F2xVF3VLbvA
 
 ## Public Ethereum wallet for certification:
 
+0x97D0b4Eb468152d68e911f5Df945c95Ec04603A7
 
 ## Project description
 
